@@ -14,41 +14,42 @@ var MessagesView = {
   render: function(data) {
     var arr = data.results;
     for(var msg of arr) {
-      if (msg.hasOwnProperty('text')){
-        MessagesView.renderMessage(msg);
-      }
-    }
+  
+        //
+        // $('option').click(function(){
+        //   console.log('yes ' + $('option').attr('class'))
+        //   if ($('option').attr('class') === msg.roomname){
+        //     console.log('blah')
+            MessagesView.renderMessage(msg);  
+          }
+      
+        // MessagesView.renderMessage(msg);
+    //   }
+    // }
   },
 
   renderMessage: function(message) {
     if ((message.username != null || message.username != undefined) && 
         (message.text != null || message.text != undefined)){
       var copyMessageUser = JSON.stringify(message.username);
-          //run a for loop to clean out < > chars
-      // var newMessageUser = '';
-      // for (var i = 0; i < copyMessageUser.length; i++){
-      //   if (copyMessageUser[i] !== '<'){
-      //     newMessageUser+=copyMessageUser[i];
-      //   }    
-      // }
+      ///put roomname inside of div class id
+      var copyRoomname = JSON.stringify(message.roomname);
       var copyMessage = JSON.stringify(message.text);
-      //run a for loop to clean out < > chars
-      // var newMessage = '';
-      // for (var i = 0; i < copyMessage.length; i++){
-      //   if (copyMessage[i] !== '<'){
-      //     newMessage+=copyMessage[i];
-      //   }
-      // }    
+      
       
       //append message object's text property to DOM, JSON.stringify(message.username)
-      if(!copyMessage.includes('script') && !copyMessageUser.includes('script')) {
-        this.$chats.append("<div class = chat><div class = username>" + copyMessageUser.replace(/['"]+/g, '') + "</div>" 
+      if(!copyMessage.includes('script') && !copyMessageUser.includes('script') 
+        && copyMessage.length != null && copyMessageUser.length != null) {
+        // this.$chats.append("<div class = chat><div class = username>" + copyMessageUser.replace(/['"]+/g, '') + "</div>" 
+        //   + copyMessage.replace(/['"]+/g, '') + "</div>");
+
+        ///put div class inside roomname
+          this.$chats.append("<div class = chat " + copyRoomname + "><div class = username>" + copyMessageUser.replace(/['"]+/g, '') + "</div>" 
           + copyMessage.replace(/['"]+/g, '') + "</div>");
       }
+      // console.log("THIS IS copyMessage.length...", copyMessage.length);
+
     }
-
-
-
 
     //so we have data.results array 
 
